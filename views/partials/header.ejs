@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguimiento de Hábitos</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">✅ Mis Hábitos</a>
+            <% if (usuario) { %>
+                <div class="nav-menu">
+                    <span class="user-name">👤 <%= usuario.nombre %></span>
+                    <a href="/habitos/nuevo" class="btn-small">+ Nuevo Hábito</a>
+                    <a href="/logout" class="btn-small btn-danger">Cerrar Sesión</a>
+                </div>
+            <% } %>
+        </div>
+    </nav>
+    <main class="container">

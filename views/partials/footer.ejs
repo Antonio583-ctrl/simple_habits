@@ -1,0 +1,58 @@
+    </main>
+    <footer class="footer">
+        <p>&copy; <%= currentYear %> - Sistema de Seguimiento de Hábitos</p>
+    </footer>
+    <script>
+        // Función para marcar hábito como completado
+        async function marcarHabito(id, elemento) {
+            try {
+                const response = await fetch(`/habitos/marcar/${id}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    elemento.disabled = true;
+                    elemento.textContent = '✅ Completado hoy';
+                    
+                    // Actualizar rachas
+                    const rachaActualSpan = document.getElementById(`racha-actual-${id}`);
+                    const rachaMaximaSpan = document.getElementById(`racha-maxima-${id}`);
+                    
+                    if (rachaActualSpan) rachaActualSpan.textContent = data.racha_actual;
+                    if (rachaMaximaSpan) rachaMaximaSpan.textContent = data.racha_maxima;
+                } else {
+                    alert(data.mensaje || 'Error al marcar hábito');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al conectar con el servidor');
+            }
+        }
+        
+        // Función para eliminar hábito
+        async function eliminarHabito(id) {
+            if (!confirm('¿Estás seguro de que quieres eliminar este hábito?')) return;
+            
+            try {
+                const response = await fetch(`/habitos/eliminar/${id}`, {
+                    method: 'DELETE'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Error al eliminar hábito');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al conectar con el servidor');
+            }
+        }
+    </script>
+</body>
+</html>

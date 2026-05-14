@@ -1,0 +1,28 @@
+<%- include('../partials/header') %>
+
+<div class="form-container">
+    <h2>Crear Nuevo Hábito</h2>
+    
+    <% if (error) { %>
+        <div class="alert alert-error"><%= error %></div>
+    <% } %>
+    
+    <form action="/habitos/nuevo" method="POST">
+        <div class="form-group">
+            <label for="nombre">Nombre del hábito *:</label>
+            <input type="text" id="nombre" name="nombre" required minlength="3" placeholder="Ej: Hacer ejercicio, Leer, Meditar">
+        </div>
+        
+        <div class="form-group">
+            <label for="descripcion">Descripción (opcional):</label>
+            <textarea id="descripcion" name="descripcion" rows="3" placeholder="Describe tu hábito..."></textarea>
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn-primary">Crear Hábito</button>
+            <a href="/habitos" class="btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>
